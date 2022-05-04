@@ -1,0 +1,232 @@
+#Data Sciene: R Basics
+
+#We start with the first section assesment in the exd course Data Sciene: R Basics
+
+#First section assessment 
+
+#Question 1: What are the two solutions to 2x^2 - x - 4 = 0 ? Use the quadratic equation.
+
+# assigning values to variables
+a < -2
+b <- -1
+c <- -4
+
+# solving the quadratic equation
+(-b + sqrt(b^2 - 4*a*c))/(2*a)
+(-b - sqrt(b^2 - 4*a*c))/(2*a)
+
+1.686
+-1.186
+
+#Question 2: Use R to compute log base 4 of 1024. You can use the help() function to learn how to use arguments to change the base of the log() function.
+
+log(1024, 4)
+
+5
+
+
+#Question 3
+library(dslabs)
+data(movielens)
+
+#Question 3a: How many rows are in the dataset?
+str(movielens)
+
+100004
+
+#Question 3b:
+
+str(movielens)
+
+7
+
+#Question 3c and Question 3d
+
+class(movielens$title)
+character
+
+class(movielens$genres)
+factor
+
+#Question 4: We already know we can use the levels() function to determine the levels of a factor.
+##A different function, nlevels(), may be used to determine the number of levels of a factor.
+###Use this function to determine how many levels are in the factor genres in the movielens data frame.
+
+nlevels(movielens$genres)
+
+901
+
+#second section assessment 
+
+#Question 1: Consider the vector x:
+
+x <- c(2, 43, 27, 96, 18)
+
+sort(x), order(x), rank(x)
+
+1. none of these
+2. order(x)
+3. rank(x)
+4. sort(x)
+
+#Question 2: Continue working with the vector x defined in question 1.
+
+##Match the following functions to their output. Options include integers 1 through 5 and none of these. 
+
+min(x) = 2
+which.min(x) = 1
+max(x) = none of these
+which.max(x) = 4
+
+#Question 3
+
+#Mandi, Amy, Nicole, and Olivia all ran different distances in different time intervals. Their distances (in
+##miles) and times (in minutes) are as follows:
+
+name <- c("Mandi", "Amy", "Nicole", "Olivia")
+distance <- c(0.8, 3.1, 2.8, 4.0)
+time <- c(10, 30, 40, 50)
+
+#Write a line of code to convert time to hours. Remember there are 60 minutes in an hour. 
+
+time_h <- time/60
+
+#Then write a line of code to calculate the speed of each runner in miles per hour. Speed is distance divided by time.
+
+speed <- distance/time_h
+
+How many hours did Olivia run?
+0.833
+
+What was Mandi's speed in miles per hour?
+4.80
+
+Which runner had the fastest speed?
+Amy
+
+#third section assessment 
+
+#load packages and prepare the data - heights dataset
+library(tidyverse)
+library(dslabs)
+library(data.table)
+data(heights)
+options(digits = 3)
+
+#Question 1: First, determine the average height in this dataset. 
+##Then create a logical vector ind with the indices for those individuals who are above average height.
+
+average_height <- mean(heights$height)
+ind <- heights$height > mean(average_height)
+sum(ind)
+
+532
+
+#Question 2: How many individuals in the dataset are above average height and are female?
+ 
+female_sample <- heights$sex == "Female"
+taller_female <- heights$height > mean(average_height)
+indf <- female_sample & taller_female
+sum(indf)
+
+31
+
+#Question 3: What proportion of individuals in the dataset are female?
+
+mean(heights$sex == "Female")
+
+0.227
+
+#Question 4a: Determine the minimum height in the heights dataset.
+
+min(heights$height)
+
+50.0
+
+#Question 4b: Use the match() function to determine the index of the first individual with the minimum height.
+
+match(50, heights$height)
+
+1032
+
+#Question 4c: Subset the sex column of the dataset by the index in 4b to determine the individual’s sex.
+
+heights$sex[match(50,heights$height)]
+
+Male
+
+#Question 5a: Determine the maximum height.
+
+max(heights$height)
+
+82.7
+
+#Question 5b: Write code to create a vector x that includes the integers between the minimum and maximum heights in this dataset (as numbers).
+
+max(heights$height)
+min(heights$height)
+
+x <- 50:83
+
+#Question 5c: How many of the integers in x are NOT heights in the dataset?
+
+sum(!(x %in% heights$height))
+
+3
+
+#Question 6a: What is the height in centimeters of the 18th individual (index 18)?
+
+heights_sample <- mutate(heights, ht_cm = height*2.54)
+head(heights_sample)
+heights_sample$ht_cm[18]
+
+163
+
+#Question 6b: What is the mean height in centimeters?
+
+mean(heights_sample$ht_cm)
+
+174
+
+#Question 7a: How many females are in the heights2 dataset?
+
+female_sample <- filter(heights_sample, sex == "Female")
+nrow(female_sample)
+
+238
+
+#Question 7b: What is the mean height of the females in centimeters?
+
+mean(female_sample$ht_cm)
+
+165
+
+
+#Question 8: The olive dataset in dslabs contains composition in percentage of eight fatty acids found in the lipid fraction of 572 Italian olive oils:
+library(dslabs)
+data(olive)
+head(olive)
+
+#Plot the percent palmitic acid versus palmitoleic acid in a scatterplot. What relationship do you see?
+
+palmitic_acid <- olive$palmitic
+palmitoleic_acid <- olive$palmitoleic
+plot(palmitic_acid,palmitoleic_acid)
+
+There is a positive linear relationship between palmitic and palmitoleic.
+
+#Question 9: Create a histogram of the percentage of eicosenoic acid in olive.
+
+hist(olive$eicosenoic)
+
+The most common value of eicosenoic acid is below 0.05%.
+
+#Question 10 :Make a boxplot of palmitic acid percentage in olive with separate distributions for each region.
+
+boxplot(palmitic ~ region, data = olive)
+
+#Which region has the highest median palmitic acid percentage?
+Southern Italy
+
+#Which region has the most variable palmitic acid percentage?
+Southern Italy
