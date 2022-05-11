@@ -1,0 +1,27 @@
+Übung 2
+
+Aufgabe 2.2 Computergestütztes Bewerten von Alignments (30%)
+install.packages("text.alignment")
+
+library(text.alignment)
+
+Aufgabe 2.2 Computergestütztes Bewerten von Alignments (30%)
+
+setwd("C:/Users/goerk/Desktop/Rstuff")
+
+read.table("alignedSequencesCalmodulin.txt")
+aligned_sequence  <- read.table("alignedSequencesCalmodulin.txt", header=F, sep="\t")
+aligned_sequence
+
+sequence1 <- strsplit(toString(aligned_sequence$V1[1]), split="")
+sequence1 <- as.character(sequence1[[1]])
+
+sequence2 <- strsplit(toString(aligned_sequence$V1[2]), split="")
+sequence2 <- as.character(sequence2[[1]])
+
+vergleich <- sequence1==sequence2
+
+result <- sum(vergleich)/length(sequence1)
+paste0("Wie hoch ist die prozentuale Übereinstimmung beider Sequenzen? ", result*100, "%")
+
+#Ergebnis: prozentuale Übereinstimmung beträgt 96.6666666666667%
